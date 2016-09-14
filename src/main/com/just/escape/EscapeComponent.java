@@ -6,7 +6,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
-public class EscapeComponent extends Canvas  implements Runnable {
+public class EscapeComponent extends Canvas implements Runnable {
 
     private static final int WIDTH = 160;
     private static final int HEIGHT = 120;
@@ -30,17 +30,17 @@ public class EscapeComponent extends Canvas  implements Runnable {
         screen = new Screen(WIDTH, HEIGHT);
 
         img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
-        pixels = ((DataBufferInt)img.getRaster().getDataBuffer()).getData();
+        pixels = ((DataBufferInt) img.getRaster().getDataBuffer()).getData();
     }
 
-    public synchronized void start (){
+    public synchronized void start() {
         if (running) return;
         running = true;
         thread = new Thread(this);
         thread.start();
     }
 
-    public synchronized void stop(){
+    public synchronized void stop() {
         if (!running) return;
         running = false;
         joinThread();
@@ -72,7 +72,7 @@ public class EscapeComponent extends Canvas  implements Runnable {
 
     @Override
     public void run() {
-        while (running){
+        while (running) {
             tick();
             render();
         }
@@ -80,7 +80,7 @@ public class EscapeComponent extends Canvas  implements Runnable {
 
     private void render() {
         BufferStrategy bufferStrategy = this.getBufferStrategy();
-        if(bufferStrategy == null){
+        if (bufferStrategy == null) {
             createBufferStrategy(3);
             return;
         }
